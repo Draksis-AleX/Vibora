@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/main_green"
     android:gravity="center">
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_foreground"
-        android:contentDescription="@string/app_name" />
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/vibora_logo" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/splash_logo_text"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:fontFamily="@font/baloo_bhai"
+        android:gravity="center"
+        android:text="@string/vibora"
+        android:textColor="@color/blue"
+        android:textSize="50sp" />
+
+</LinearLayout>
