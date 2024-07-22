@@ -1,6 +1,5 @@
 package com.example.vibora;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -40,13 +39,20 @@ public class ViewAllReports extends AppCompatActivity {
             return insets;
         });
 
-        initWidgets();
+        initViews();
         setReportsRecycler();
 
         back_btn.setOnClickListener(v -> {
             finish();
         });
     }
+
+    private void initViews() {
+        reports_recycler = findViewById(R.id.reports_recycler);
+        back_btn = findViewById(R.id.back_btn);
+    }
+
+    //==============================================================================================
 
     private void setReportsRecycler() {
         reports_list = new ArrayList<>();
@@ -67,10 +73,5 @@ public class ViewAllReports extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-    private void initWidgets() {
-        reports_recycler = findViewById(R.id.reports_recycler);
-        back_btn = findViewById(R.id.back_btn);
     }
 }

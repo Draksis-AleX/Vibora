@@ -28,16 +28,21 @@ public class SetLessons extends AppCompatActivity {
         setContentView(R.layout.activity_set_lessons);
         getWindow().setStatusBarColor(this.getResources().getColor(R.color.main_green));
 
-        initWidgets();
+        initViews();
         setupFieldRecyclerView();
 
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
+        back_btn.setOnClickListener(v -> {
+            finish();
         });
     }
+
+    private void initViews() {
+        back_btn = findViewById(R.id.back_btn);
+        recyclerView = findViewById(R.id.field_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    //==============================================================================================
 
     private void setupFieldRecyclerView(){
         // Costruisci la nuova query con il termine di ricerca
@@ -55,11 +60,5 @@ public class SetLessons extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
             adapter.startListening();
         }
-    }
-
-    private void initWidgets() {
-        back_btn = findViewById(R.id.back_btn);
-        recyclerView = findViewById(R.id.field_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

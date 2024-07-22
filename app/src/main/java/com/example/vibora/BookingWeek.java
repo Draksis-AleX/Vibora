@@ -93,7 +93,7 @@ public class BookingWeek extends AppCompatActivity implements CalendarAdapter.On
 
     @Override
     public void onItemClick(int position, LocalDate date) {
-        if(date.isBefore(LocalDate.now())) return;
+        //if(date.isBefore(LocalDate.now())) return;
 
         CalendarUtils.selectedDate = date;
         setWeekView();

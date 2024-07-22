@@ -34,7 +34,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Register extends AppCompatActivity {
-
     EditText mFullName, mUsername, mEmail, mPassword, mConfirmPassword;
     Button mRegisterBtn;
     TextView mLoginBtn;
@@ -44,14 +43,13 @@ public class Register extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userID;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
-        initWidgets();
+        initViews();
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -76,16 +74,9 @@ public class Register extends AppCompatActivity {
         mLoginBtn.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(), Login.class));
         });
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
 
-    private void initWidgets() {
+    private void initViews() {
         mFullName = findViewById(R.id.full_name);
         mUsername = findViewById(R.id.username);
         mEmail = findViewById(R.id.email);
@@ -95,6 +86,8 @@ public class Register extends AppCompatActivity {
         mLoginBtn = findViewById(R.id.login_text_btn);
         progressBar = findViewById(R.id.progressBar);
     }
+
+    //==============================================================================================
 
     private void register(){
         String full_name = mFullName.getText().toString().trim();
@@ -150,11 +143,11 @@ public class Register extends AppCompatActivity {
                             docReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Log.d(TAG, "OnSuccess: user profile is created for " + userID + " | " + user.getFull_name() + " | " + user.getUsername() + " | " + user.getEmail());
+                                    Log.d("Register", "OnSuccess: user profile is created for " + userID + " | " + user.getFull_name() + " | " + user.getUsername() + " | " + user.getEmail());
                                     FirebaseUtils.currentUserDetails().get().addOnCompleteListener(task1 -> {
                                         FirebaseUtils.currentUserModel = task1.getResult().toObject(UserModel.class);
-                                        Log.d("TAG", "isAdmin -> " + FirebaseUtils.currentUserModel.getIsAdmin());
-                                        Log.d("TAG", "userName -> " + FirebaseUtils.currentUserModel.getFull_name());
+                                        Log.d("Register", "isAdmin -> " + FirebaseUtils.currentUserModel.getIsAdmin());
+                                        Log.d("Register", "userName -> " + FirebaseUtils.currentUserModel.getFull_name());
                                         Toast.makeText(Register.this, "Logged In", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                         finish();

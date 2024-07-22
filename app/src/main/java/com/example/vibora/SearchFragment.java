@@ -21,14 +21,11 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 
 public class SearchFragment extends Fragment {
-
     EditText searchInput;
     ImageButton searchButton;
     RecyclerView recyclerView;
 
     SearchUserRecyclerAdapter adapter;
-
-    // Memorizza le FirestoreRecyclerOptions per il riferimento durante le ricerche successive
     FirestoreRecyclerOptions<UserModel> options;
 
     @Override
@@ -37,11 +34,7 @@ public class SearchFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        searchInput = view.findViewById(R.id.search_username_input);
-        searchButton = view.findViewById(R.id.search_user_btn);
-        recyclerView = view.findViewById(R.id.search_user_recycler_view);
-
-        searchInput.requestFocus();
+        initViews(view);
 
         searchInput.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -66,11 +59,22 @@ public class SearchFragment extends Fragment {
                 searchInput.setError("Invalid Username");
                 return;
             }
+            AndroidUtils.hideKeyboardFrom(getContext(), searchInput);
             setupSearchRecyclerView(searchTerm);
         });
 
         return view;
     }
+
+    private void initViews(View view) {
+        searchInput = view.findViewById(R.id.search_username_input);
+        searchButton = view.findViewById(R.id.search_user_btn);
+        recyclerView = view.findViewById(R.id.search_user_recycler_view);
+
+        searchInput.requestFocus();
+    }
+
+    //==============================================================================================
 
     void setupSearchRecyclerView(String searchTerm){
 

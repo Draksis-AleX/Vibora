@@ -66,7 +66,6 @@ public class ProfileFragment extends Fragment {
                                             enableBottomNavigationButtons();
                                         });
                             }
-
                         }
                     }
                 });
@@ -120,6 +119,8 @@ public class ProfileFragment extends Fragment {
         ranking_score = view.findViewById(R.id.profile_ranking_score);
         progressBar = view.findViewById(R.id.progressBar);
     }
+
+    //==============================================================================================
 
     void getUserData(){
         currentUser = FirebaseUtils.currentUserModel;

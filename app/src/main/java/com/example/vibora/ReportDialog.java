@@ -33,7 +33,7 @@ public class ReportDialog extends AppCompatActivity {
         USER_ID = getIntent().getStringExtra("USER_ID");
         USERNAME = getIntent().getStringExtra("USERNAME");
 
-        initWidgets();
+        initViews();
         setupSpinner();
 
         confirm_btn.setOnClickListener(v -> {
@@ -45,6 +45,17 @@ public class ReportDialog extends AppCompatActivity {
             finish();
         });
     }
+
+    private void initViews() {
+        user_txt = findViewById(R.id.user_txt);
+        confirm_btn = findViewById(R.id.confirm_btn);
+        cancel_btn = findViewById(R.id.cancel_btn);
+        spinner = findViewById(R.id.reason_spinner);
+
+        user_txt.setText(USERNAME);
+    }
+
+    //==============================================================================================
 
     private void reportPlayer() {
         ReportModel reportModel = new ReportModel(USER_ID, USERNAME, CalendarUtils.convertFromLocalDateToTimestamp(LocalDate.now()), spinner.getSelectedItem().toString(), FirebaseUtils.currentUserId(), FirebaseUtils.currentUserModel.getUsername());
@@ -63,14 +74,5 @@ public class ReportDialog extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
-    }
-
-    private void initWidgets() {
-        user_txt = findViewById(R.id.user_txt);
-        confirm_btn = findViewById(R.id.confirm_btn);
-        cancel_btn = findViewById(R.id.cancel_btn);
-        spinner = findViewById(R.id.reason_spinner);
-
-        user_txt.setText(USERNAME);
     }
 }

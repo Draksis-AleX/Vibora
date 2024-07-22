@@ -128,6 +128,8 @@ public class ProfileFragmentAdmin extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
     }
 
+    //==============================================================================================
+
     void getUserData(){
         currentUser = FirebaseUtils.currentUserModel;
 
@@ -181,5 +183,4 @@ public class ProfileFragmentAdmin extends Fragment {
             bottomNavigationView.getMenu().getItem(i).setEnabled(true);
         }
     }
-
 }

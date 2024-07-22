@@ -43,7 +43,7 @@ public class MyBookings extends AppCompatActivity implements MyBookingsAdapter.O
             return insets;
         });
 
-        initWidgets();
+        initViews();
         setMyBookingsAdapter();
 
         back_btn.setOnClickListener(v -> {
@@ -51,10 +51,12 @@ public class MyBookings extends AppCompatActivity implements MyBookingsAdapter.O
         });
     }
 
-    private void initWidgets() {
+    private void initViews() {
         bookings_recycler = findViewById(R.id.bookings_recycler);
         back_btn = findViewById(R.id.back_btn);
     }
+
+    //==============================================================================================
 
     private void setMyBookingsAdapter() {
         Log.d("MyBookingsDebug", "setMyBookingAdapter");

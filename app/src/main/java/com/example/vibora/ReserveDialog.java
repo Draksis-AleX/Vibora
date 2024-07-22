@@ -47,58 +47,29 @@ public class ReserveDialog extends AppCompatActivity implements UserReserveRowAd
         FIELD_NAME = getIntent().getStringExtra("FIELD_NAME");
         TIMESLOT = getIntent().getStringExtra("TIMESLOT");
 
-        initWidgets();
+        initViews();
         setUserRecycler();
 
-        close_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(user_list.size() < 4)
-                    addUser();
-                else
-                    completeReservation();
-            }
-        });
-    }
-
-    private void completeReservation() {
-        addToExistingBooking(CalendarUtils.mapTimeSlot(TIMESLOT)).addOnSuccessListener(isFound -> {
-            if (isFound) {
-                // Operazione di aggiornamento riuscita
-                Log.d("BOOKING", "Updated Existing Booking");
-            } else {
-                // Nessun documento trovato con il time slot specificato
-                ArrayList<String> user_booking_list = new ArrayList<>();
-                ArrayList<PlayerResult> matchResults = new ArrayList<>();
-                for(UserModel userModel : user_list){
-                    matchResults.add(new PlayerResult(userModel.getUserId(), "?"));
-                    user_booking_list.add(userModel.getUserId());
-                }
-                BookingModel bookingModel= new BookingModel(FIELD_NAME, CalendarUtils.selectedDate, CalendarUtils.mapTimeSlot(TIMESLOT), user_booking_list, matchResults);
-                String userList = "";
-                for(String user : bookingModel.getUserIdList())
-                    userList += user + " ";
-                Log.d("BOOKING", "bookignModel:\nfieldId -> " + bookingModel.getFieldId() + "\nDate -> " + CalendarUtils.formattedDate(CalendarUtils.convertFromTimestampToLocalDate(bookingModel.getDate())) + "\ntimeSlot -> " + bookingModel.getTimeSlot() + "\nusers -> " + userList);
-
-                FirebaseUtils.dailyBookingsCollectionReference(FIELD_NAME, CalendarUtils.formattedDate(CalendarUtils.selectedDate)).add(bookingModel)
-                        .addOnSuccessListener(documentReference -> {
-                            Log.d("Firestore", "DocumentSnapshot added with ID: " + documentReference.getId());
-                        })
-                        .addOnFailureListener(e -> {
-                            Log.w("Firestore", "Error adding document", e);
-                        });
-            }
-            AndroidUtils.showToast(this, "Field Booked");
+        close_btn.setOnClickListener(v -> {
             finish();
         });
+
+        add_btn.setOnClickListener(v -> {
+            if(user_list.size() < 4)
+                addUser();
+            else
+                completeReservation();
+        });
     }
+
+    private void initViews() {
+        add_btn = findViewById(R.id.add_btn);
+        close_btn = findViewById(R.id.close_btn);
+        user_list_recycler = findViewById(R.id.user_list_recycler);
+        user_edit_text = findViewById(R.id.username_edit);
+    }
+
+    //==============================================================================================
 
     private static Task<Boolean> addToExistingBooking(int _timeSlot) {
         TaskCompletionSource<Boolean> taskCompletionSource = new TaskCompletionSource<>();
@@ -140,6 +111,38 @@ public class ReserveDialog extends AppCompatActivity implements UserReserveRowAd
                     }
                 });
         return taskCompletionSource.getTask();
+    }
+
+    private void completeReservation() {
+        addToExistingBooking(CalendarUtils.mapTimeSlot(TIMESLOT)).addOnSuccessListener(isFound -> {
+            if (isFound) {
+                // Operazione di aggiornamento riuscita
+                Log.d("BOOKING", "Updated Existing Booking");
+            } else {
+                // Nessun documento trovato con il time slot specificato
+                ArrayList<String> user_booking_list = new ArrayList<>();
+                ArrayList<PlayerResult> matchResults = new ArrayList<>();
+                for(UserModel userModel : user_list){
+                    matchResults.add(new PlayerResult(userModel.getUserId(), "?"));
+                    user_booking_list.add(userModel.getUserId());
+                }
+                BookingModel bookingModel= new BookingModel(FIELD_NAME, CalendarUtils.selectedDate, CalendarUtils.mapTimeSlot(TIMESLOT), user_booking_list, matchResults);
+                String userList = "";
+                for(String user : bookingModel.getUserIdList())
+                    userList += user + " ";
+                Log.d("BOOKING", "bookignModel:\nfieldId -> " + bookingModel.getFieldId() + "\nDate -> " + CalendarUtils.formattedDate(CalendarUtils.convertFromTimestampToLocalDate(bookingModel.getDate())) + "\ntimeSlot -> " + bookingModel.getTimeSlot() + "\nusers -> " + userList);
+
+                FirebaseUtils.dailyBookingsCollectionReference(FIELD_NAME, CalendarUtils.formattedDate(CalendarUtils.selectedDate)).add(bookingModel)
+                        .addOnSuccessListener(documentReference -> {
+                            Log.d("Firestore", "DocumentSnapshot added with ID: " + documentReference.getId());
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.w("Firestore", "Error adding document", e);
+                        });
+            }
+            AndroidUtils.showToast(this, "Field Booked");
+            finish();
+        });
     }
 
     private void addUser() {
@@ -190,13 +193,6 @@ public class ReserveDialog extends AppCompatActivity implements UserReserveRowAd
         adapter = new UserReserveRowAdapter(getApplicationContext(), user_list, ReserveDialog.this);
         user_list_recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         user_list_recycler.setAdapter(adapter);
-    }
-
-    private void initWidgets() {
-        add_btn = findViewById(R.id.add_btn);
-        close_btn = findViewById(R.id.close_btn);
-        user_list_recycler = findViewById(R.id.user_list_recycler);
-        user_edit_text = findViewById(R.id.username_edit);
     }
 
     @Override

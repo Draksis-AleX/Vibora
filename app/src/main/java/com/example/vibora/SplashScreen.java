@@ -14,7 +14,7 @@ import com.example.vibora.utils.FirebaseUtils;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static final int SPLASH_TIME_OUT = 2000;
+    private static final int SPLASH_TIME_OUT = 1500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class SplashScreen extends AppCompatActivity {
                         finish();
                     }, SPLASH_TIME_OUT);
                 } else {
-                    // Gestisci il caso di errore se necessario
                     Log.e("TAG", "Error loading user model", task.getException());
                 }
             });

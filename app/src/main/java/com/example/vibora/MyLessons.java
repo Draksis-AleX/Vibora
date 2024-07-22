@@ -42,7 +42,7 @@ public class MyLessons extends AppCompatActivity implements LessonsAdapter.OnLes
             return insets;
         });
 
-        initWidgets();
+        initViews();
 
         lessons_student_list = new ArrayList<>();
         lessons_student_adapter = new LessonsAdapter(getApplicationContext(), lessons_student_list, this);
@@ -59,6 +59,14 @@ public class MyLessons extends AppCompatActivity implements LessonsAdapter.OnLes
             finish();
         });
     }
+
+    private void initViews() {
+        lessons_student_recycler = findViewById(R.id.lessons_student_recycler);
+        lessons_teacher_recycler = findViewById(R.id.lessons_teacher_recycler);
+        back_btn = findViewById(R.id.back_btn);
+    }
+
+    //==============================================================================================
 
     private void setupLessonsRecyclers() {
         FirebaseUtils.allLessonsCollectionReference().whereEqualTo("teacherId", FirebaseUtils.currentUserId()).get()
@@ -102,12 +110,6 @@ public class MyLessons extends AppCompatActivity implements LessonsAdapter.OnLes
             if(slotStartTime.isBefore(LocalTime.now())) return true;
         }
         return false;
-    }
-
-    private void initWidgets() {
-        lessons_student_recycler = findViewById(R.id.lessons_student_recycler);
-        lessons_teacher_recycler = findViewById(R.id.lessons_teacher_recycler);
-        back_btn = findViewById(R.id.back_btn);
     }
 
     @Override

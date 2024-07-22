@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +22,6 @@ import com.google.android.gms.tasks.Task;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class OtherProfile extends AppCompatActivity {
-
     public static final String EXTRA_USER_ID = "extra_user_id";
 
     TextView full_name, full_name2, username, username2, ranking_score;
@@ -32,8 +30,6 @@ public class OtherProfile extends AppCompatActivity {
     CircleImageView profile_image;
 
     UserModel user;
-    ActivityResultLauncher<Intent> imagePickLauncher;
-    Uri selectedImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +40,7 @@ public class OtherProfile extends AppCompatActivity {
 
         String userId = getIntent().getStringExtra(EXTRA_USER_ID);
 
-        initWidgets();
+        initViews();
         getUserData(userId);
 
         unban_btn.setOnClickListener(v -> {
@@ -74,6 +70,30 @@ public class OtherProfile extends AppCompatActivity {
             }
         });
     }
+
+    private void initViews() {
+        full_name = findViewById(R.id.profile_full_name);
+        full_name2 = findViewById(R.id.profile_full_name_2);
+        username = findViewById(R.id.profile_username);
+        username2 = findViewById(R.id.profile_username_2);
+        ranking_score = findViewById(R.id.profile_ranking_score);
+        profile_image = findViewById(R.id.profile_image);
+        backBtn = findViewById(R.id.back_button);
+        reportBtn = findViewById(R.id.report_btn);
+        ban_btn = findViewById(R.id.ban_btn);
+        unban_btn = findViewById(R.id.unban_btn);
+        reset_skill_rating_btn = findViewById(R.id.reset_skill_rating_btn);
+        if(FirebaseUtils.currentUserModel.getIsAdmin() == 0){
+            ViewGroup layout = (ViewGroup) ban_btn.getParent();
+            if(layout!=null){
+                layout.removeView(ban_btn);
+                layout.removeView(reset_skill_rating_btn);
+                layout.removeView(unban_btn);
+            }
+        }
+    }
+
+    //==============================================================================================
 
     private void unbanUser() {
         user.setBanned(0);
@@ -113,28 +133,6 @@ public class OtherProfile extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-    private void initWidgets() {
-        full_name = findViewById(R.id.profile_full_name);
-        full_name2 = findViewById(R.id.profile_full_name_2);
-        username = findViewById(R.id.profile_username);
-        username2 = findViewById(R.id.profile_username_2);
-        ranking_score = findViewById(R.id.profile_ranking_score);
-        profile_image = findViewById(R.id.profile_image);
-        backBtn = findViewById(R.id.back_button);
-        reportBtn = findViewById(R.id.report_btn);
-        ban_btn = findViewById(R.id.ban_btn);
-        unban_btn = findViewById(R.id.unban_btn);
-        reset_skill_rating_btn = findViewById(R.id.reset_skill_rating_btn);
-        if(FirebaseUtils.currentUserModel.getIsAdmin() == 0){
-            ViewGroup layout = (ViewGroup) ban_btn.getParent();
-            if(layout!=null){
-                layout.removeView(ban_btn);
-                layout.removeView(reset_skill_rating_btn);
-                layout.removeView(unban_btn);
-            }
-        }
     }
 
     void getUserData(String userId){
