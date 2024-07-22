@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".ReportDialog">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_background"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/field_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reporting User"
+            android:textSize="20sp"
+            android:fontFamily="@font/baloo_bhai"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_margin="15dp"/>
+
+        <TextView
+            android:id="@+id/user_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="User: \@draksis"
+            android:fontFamily="@font/baloo_bhai"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="5dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose an option"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/baloo_bhai"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:padding="15dp"/>
+
+    <Spinner
+        android:id="@+id/reason_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/separator_gray" />
+
+    <Button
+        android:id="@+id/confirm_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/main_green"
+        android:fontFamily="@font/baloo_bhai"
+        android:text="Confirm"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/cancel_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/red"
+        android:fontFamily="@font/baloo_bhai"
+        android:text="Cancel"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginBottom="15dp"/>
+</LinearLayout>

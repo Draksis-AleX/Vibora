@@ -8,4 +8,7 @@
     <color name="orange">#FFE3B0</color>
     <color name="red">#F5C8BD</color>
     <color name="blue">#525e75</color>
+    <color name="dark_blue">#181B22</color>
+    <color name="separator_gray">#D3D3D3</color>
+    <color name="light_gray">#E8E8E8</color>
 </resources>

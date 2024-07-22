@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,15 +13,61 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Vibora"
+        android:theme="@style/Base.Theme.Vibora"
         tools:targetApi="31">
+        <activity
+            android:name=".ViewAllReports"
+            android:exported="false" />
+        <activity
+            android:name=".ReportDialog"
+            android:exported="false"
+            android:theme="@style/DialogActivityTheme" />
+        <activity
+            android:name=".MyLessons"
+            android:exported="false" />
+        <activity
+            android:name=".BookLessonDialog"
+            android:exported="false"
+            android:theme="@style/DialogActivityTheme" />
+        <activity
+            android:name=".LearnBookingDialog"
+            android:exported="false"
+            android:theme="@style/DialogActivityTheme" />
+        <activity
+            android:name=".LearnBookingWeek"
+            android:exported="false" />
+        <activity
+            android:name=".SetLessons"
+            android:exported="false" />
+        <activity
+            android:name=".ReserveDialog"
+            android:exported="false"
+            android:theme="@style/DialogActivityTheme" />
+        <activity
+            android:name=".MatchResult"
+            android:exported="false" />
+        <activity
+            android:name=".EditFields"
+            android:exported="false" />
+        <activity
+            android:name=".MyBookings"
+            android:exported="false" />
+        <activity
+            android:name=".BookingWeek"
+            android:exported="false" />
+        <activity
+            android:name=".Booking"
+            android:exported="false" />
+        <activity
+            android:name=".OtherProfile"
+            android:exported="false" />
         <activity
             android:name=".Register"
             android:exported="false" />
         <activity
             android:name=".Login"
-            android:exported="false" />
-
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SplashScreen"
             android:exported="true">
@@ -32,7 +79,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

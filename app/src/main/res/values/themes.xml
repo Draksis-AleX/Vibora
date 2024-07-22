@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.Vibora" parent="Base.Theme.Vibora" />
+
+    <style name="DialogActivityTheme" parent="Theme.Vibora">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowMinWidthMajor">70%</item>
+        <item name="android:windowMinWidthMinor">60%</item>
+        <item name="android:windowBackground">@drawable/white_background</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
 </resources>
